@@ -1,28 +1,28 @@
 <?php
-namespace fyflzjz\payment\Wxpay;
+namespace fyflzjz\paypal\Wxpay;
 
 ini_set('date.timezone', 'Asia/Shanghai');
 error_reporting(E_ERROR);
 
-use fyflzjz\payment\Wxpay\lib\WxPayApi;
-use fyflzjz\payment\Wxpay\lib\WxPayException;
-use fyflzjz\payment\Wxpay\lib\WxPayNotify;
-use fyflzjz\payment\Wxpay\lib\WxPayBizPayUrl;
-use fyflzjz\payment\Wxpay\lib\WxPayCloseOrder;
-use fyflzjz\payment\Wxpay\lib\WxPayDataBase;
-use fyflzjz\payment\Wxpay\lib\WxPayDownloadBill;
-use fyflzjz\payment\Wxpay\lib\WxPayJsApiPay;
-use fyflzjz\payment\Wxpay\lib\WxPayMicroPay;
-use fyflzjz\payment\Wxpay\lib\WxPayNotifyReply;
-use fyflzjz\payment\Wxpay\lib\WxPayRefund;
-use fyflzjz\payment\Wxpay\lib\WxPayRefundQuery;
-use fyflzjz\payment\Wxpay\lib\WxPayReport;
-use fyflzjz\payment\Wxpay\lib\WxPayResults;
-use fyflzjz\payment\Wxpay\lib\WxPayReverse;
-use fyflzjz\payment\Wxpay\lib\WxPayShortUrl;
-use fyflzjz\payment\Wxpay\lib\WxPayUnifiedOrder;
-use fyflzjz\payment\Wxpay\CLogFileHandler;
-use fyflzjz\payment\Wxpay\lib\WxPayConfigJsApi;
+use fyflzjz\paypal\Wxpay\lib\WxPayApi;
+use fyflzjz\paypal\Wxpay\lib\WxPayException;
+use fyflzjz\paypal\Wxpay\lib\WxPayNotify;
+use fyflzjz\paypal\Wxpay\lib\WxPayBizPayUrl;
+use fyflzjz\paypal\Wxpay\lib\WxPayCloseOrder;
+use fyflzjz\paypal\Wxpay\lib\WxPayDataBase;
+use fyflzjz\paypal\Wxpay\lib\WxPayDownloadBill;
+use fyflzjz\paypal\Wxpay\lib\WxPayJsApiPay;
+use fyflzjz\paypal\Wxpay\lib\WxPayMicroPay;
+use fyflzjz\paypal\Wxpay\lib\WxPayNotifyReply;
+use fyflzjz\paypal\Wxpay\lib\WxPayRefund;
+use fyflzjz\paypal\Wxpay\lib\WxPayRefundQuery;
+use fyflzjz\paypal\Wxpay\lib\WxPayReport;
+use fyflzjz\paypal\Wxpay\lib\WxPayResults;
+use fyflzjz\paypal\Wxpay\lib\WxPayReverse;
+use fyflzjz\paypal\Wxpay\lib\WxPayShortUrl;
+use fyflzjz\paypal\Wxpay\lib\WxPayUnifiedOrder;
+use fyflzjz\paypal\Wxpay\CLogFileHandler;
+use fyflzjz\paypal\Wxpay\lib\WxPayConfigJsApi;
 
 /**
  *

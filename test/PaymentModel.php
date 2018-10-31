@@ -25,7 +25,7 @@ class PaymentModel extends Model
      * wxapy_h5 微信H5
      * 当为支付宝H5以及支付宝PC唤起支付时直接输出返回参数内data的数据即可，data参数内为from表单代码，它会自动提交
      *
-     * order_type 区分订单类型，便于
+     * order_type 区分订单类型，便于异步通知处理业务逻辑
      */
     public function payment($config, $data)
     {
@@ -55,9 +55,9 @@ class PaymentModel extends Model
         switch ($payment_way) {
             //支付宝H5
             case 'alipay_h5':
-                $aop = new \fyflzjz\payment\AlipayAop\AopClient($config);
+                $aop = new \fyflzjz\paypal\AlipayAop\AopClient($config);
 
-                $request = new \fyflzjz\payment\AlipayAop\request\AlipayTradeWapPayRequest();
+                $request = new \fyflzjz\paypal\AlipayAop\request\AlipayTradeWapPayRequest();
                 $setBizContent = json_encode(
                     [
                         'body'            => $payment_name,
@@ -83,9 +83,9 @@ class PaymentModel extends Model
 
             //支付宝App
             case 'alipay_app':
-                $aop = new \fyflzjz\payment\AlipayAop\AopClient($config);
+                $aop = new \fyflzjz\paypal\AlipayAop\AopClient($config);
 
-                $request = new \fyflzjz\payment\AlipayAop\request\AlipayTradeAppPayRequest();
+                $request = new \fyflzjz\paypal\AlipayAop\request\AlipayTradeAppPayRequest();
                 $setBizContent = json_encode(
                     [
                         'body'            => $payment_name,
@@ -108,9 +108,9 @@ class PaymentModel extends Model
 
             //支付宝PC
             case 'alipay_pc':
-                $aop = new \fyflzjz\payment\AlipayAop\AopClient($config);
+                $aop = new \fyflzjz\paypal\AlipayAop\AopClient($config);
 
-                $request = new \fyflzjz\payment\AlipayAop\request\AlipayTradePagePayRequest();
+                $request = new \fyflzjz\paypal\AlipayAop\request\AlipayTradePagePayRequest();
                 $setBizContent = json_encode(
                     [
                         'body'            => $payment_name,
@@ -143,7 +143,7 @@ class PaymentModel extends Model
 
                 $notify_url = '填写自己的支付异步通知地址，带http/https';
 
-                $weiXinPay = new \fyflzjz\payment\Wxpay\WxPay($config);
+                $weiXinPay = new \fyflzjz\paypal\Wxpay\WxPay($config);
 
                 $prepay_data = $weiXinPay->get_prepay_id($payment_name, $out_sn, $total_fee, $attach, FALSE, $notify_url);
 
@@ -166,7 +166,7 @@ class PaymentModel extends Model
 
                 $notify_url = '填写自己的支付异步通知地址，带http/https';
 
-                $weiXinPay = new \fyflzjz\payment\Wxpay\JsApiPay($config);
+                $weiXinPay = new \fyflzjz\paypal\Wxpay\JsApiPay($config);
 
                 //1.获取用户openid
                 $openId = $weiXinPay->GetOpenid($data);
@@ -222,8 +222,8 @@ class PaymentModel extends Model
             case 'alipay_h5' : //支付宝H5
             case 'alipay_app' : //支付宝App
             case 'alipay_pc' : //支付宝PC
-                $aop = new \fyflzjz\payment\AlipayAop\AopClient($config);
-                $request = new \fyflzjz\payment\AlipayAop\request\AlipayTradeQueryRequest();
+                $aop = new \fyflzjz\paypal\AlipayAop\AopClient($config);
+                $request = new \fyflzjz\paypal\AlipayAop\request\AlipayTradeQueryRequest();
                 if ($out_sn) {
                     $bizContent = ['out_trade_no' => $out_sn];
                 } else {
@@ -270,7 +270,7 @@ class PaymentModel extends Model
                 break;
 
             case 'wxpay_app' : //微信App
-                $weiXinPay = new \fyflzjz\payment\Wxpay\WxPay($config);
+                $weiXinPay = new \fyflzjz\paypal\Wxpay\WxPay($config);
                 $result = $weiXinPay->orderQuery($out_sn, $trade_no);
                 /*
                  * return_code  状态码
@@ -313,7 +313,7 @@ class PaymentModel extends Model
                 break;
 
             case 'wxpay_h5' : //微信H5
-                $weiXinPay = new \fyflzjz\payment\Wxpay\JsApiPay($config);
+                $weiXinPay = new \fyflzjz\paypal\Wxpay\JsApiPay($config);
                 $result = $weiXinPay->orderQuery($out_sn, $trade_no);
                 /*
                  * return_code  状态码
@@ -377,8 +377,8 @@ class PaymentModel extends Model
             return ['code' => '-1', 'msg' => '参数错误', 'data' => ''];
         }
 
-        $aop = new \fyflzjz\payment\AlipayAop\AopClient($config);
-        $request = new \fyflzjz\payment\AlipayAop\request\AlipayTradeFastpayRefundQueryRequest();
+        $aop = new \fyflzjz\paypal\AlipayAop\AopClient($config);
+        $request = new \fyflzjz\paypal\AlipayAop\request\AlipayTradeFastpayRefundQueryRequest();
         $setBizContent = json_encode(
             [
                 'out_trade_no'   => $param['out_sn'],
@@ -424,8 +424,8 @@ class PaymentModel extends Model
             return ['code' => '-1', 'msg' => '参数错误', 'data' => ''];
         }
 
-        $aop = new \fyflzjz\payment\AlipayAop\AopClient($config);
-        $request = new \fyflzjz\payment\AlipayAop\request\AlipayTradeRefundRequest();
+        $aop = new \fyflzjz\paypal\AlipayAop\AopClient($config);
+        $request = new \fyflzjz\paypal\AlipayAop\request\AlipayTradeRefundRequest();
         $setBizContent = json_encode(
             [
                 'out_trade_no'   => $param['out_sn'],
@@ -479,10 +479,10 @@ class PaymentModel extends Model
 
         //查询微信APP退款
         if ($param['payment_way'] == 'wxpay_app') {
-            $weiXinPay = new \fyflzjz\payment\Wxpay\WxPay($config);
+            $weiXinPay = new \fyflzjz\paypal\Wxpay\WxPay($config);
         } elseif ($param['payment_way'] == 'wxapy_h5') {
             //查询微信H5退款
-            $weiXinPay = new \fyflzjz\payment\Wxpay\JsApiPay($config);
+            $weiXinPay = new \fyflzjz\paypal\Wxpay\JsApiPay($config);
         } else {
             return ['code' => '-1', 'msg' => '参数错误', 'data' => ''];
         }
@@ -511,10 +511,10 @@ class PaymentModel extends Model
 
         //查询微信APP退款
         if ($param['payment_way'] == 'wxpay_app') {
-            $weiXinPay = new \fyflzjz\payment\Wxpay\WxPay($config, $param['trade_no'], $param['total_fee'] * 100, $param['refund_amount'] * 100);
+            $weiXinPay = new \fyflzjz\paypal\Wxpay\WxPay($config, $param['trade_no'], $param['total_fee'] * 100, $param['refund_amount'] * 100);
         } elseif ($param['payment_way'] == 'wxapy_h5') {
             //查询微信H5退款
-            $weiXinPay = new \fyflzjz\payment\Wxpay\JsApiPay($config, $param['trade_no'], $param['total_fee'] * 100, $param['refund_amount'] * 100);
+            $weiXinPay = new \fyflzjz\paypal\Wxpay\JsApiPay($config, $param['trade_no'], $param['total_fee'] * 100, $param['refund_amount'] * 100);
         } else {
             return ['code' => '-1', 'msg' => '参数错误', 'data' => ''];
         }
@@ -543,8 +543,8 @@ class PaymentModel extends Model
 
         if (in_array($param['payment_way'], ['alipay_app', 'alipay_h5', 'alipay_pc'])) {
 
-            $aop = new \fyflzjz\payment\AlipayAop\AopClient($config);
-            $request = new \fyflzjz\payment\AlipayAop\request\AlipayDataDataserviceBillDownloadurlQueryRequest();
+            $aop = new \fyflzjz\paypal\AlipayAop\AopClient($config);
+            $request = new \fyflzjz\paypal\AlipayAop\request\AlipayDataDataserviceBillDownloadurlQueryRequest();
             $setBizContent = json_encode(['bill_type' => 'trade', 'bill_date' => $param['ali_date']]);
             $request->setBizContent($setBizContent);
             $result = $aop->execute($request);
@@ -558,7 +558,7 @@ class PaymentModel extends Model
             }
 
         } elseif (in_array($param['payment_way'], ['wxpay_app', 'wxapy_h5'])) {
-            $weiXinPay = new \fyflzjz\payment\Wxpay\WxPay($config);
+            $weiXinPay = new \fyflzjz\paypal\Wxpay\WxPay($config);
             $result = $weiXinPay->downloadBill($param['wx_date']);
 
             //下载对账单

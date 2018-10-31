@@ -1,8 +1,8 @@
 <?php
 
-namespace fyflzjz\payment\Wxpay\lib;
+namespace fyflzjz\paypal\Wxpay\lib;
 
-use fyflzjz\payment\Wxpay\lib\WxPayNotifyReply;
+use fyflzjz\paypal\Wxpay\lib\WxPayNotifyReply;
 /**
  *
  * 回调基础类

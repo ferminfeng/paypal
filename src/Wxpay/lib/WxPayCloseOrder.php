@@ -1,5 +1,5 @@
 <?php
-namespace fyflzjz\payment\Wxpay\lib;
+namespace fyflzjz\paypal\Wxpay\lib;
 
 use fyflzjz\payment\Wxpay\lib\WxPayDataBase;
 

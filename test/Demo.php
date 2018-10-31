@@ -523,7 +523,7 @@ class Payment
 		];
 		
         //支付宝验签
-        $aop = new \fyflzjz\payment\AlipayAop\AopClient($config);
+        $aop = new \fyflzjz\paypal\AlipayAop\AopClient($config);
         $notify_result = $aop->rsaCheckV1($notify_data);
         if ($notify_result) {
             //区分异步通知状态 当trade_status=TRADE_SUCCESS时表明支付成功
@@ -570,7 +570,7 @@ class Payment
 			'sslcert_path' => '',
 			'sslkey_path' => '',
 		];
-        $weiXinPay = new \fyflzjz\payment\Wxpay\WxPay($config);
+        $weiXinPay = new \fyflzjz\paypal\Wxpay\WxPay($config);
         $notify_info = $weiXinPay->check_notify();
 
         //验签失败 返回消息给微信服务器
@@ -633,7 +633,7 @@ class Payment
 			'sslcert_path' => '',
 			'sslkey_path' => '',
 		];
-        $weiXinPay = new \fyflzjz\payment\Wxpay\JsApiPay($config);
+        $weiXinPay = new \fyflzjz\paypal\Wxpay\JsApiPay($config);
         $notify_info = $weiXinPay->check_notify();
 
         //验签失败 返回消息给微信服务器
@@ -692,14 +692,14 @@ class Payment
 		];
 		
         //支付宝验签
-        $aop = new \fyflzjz\payment\AlipayAop\AopClient($config);
+        $aop = new \fyflzjz\paypal\AlipayAop\AopClient($config);
         $notify_result = $aop->rsaCheckV1($notify_data);
         if ($notify_result) {
             $out_trade_no = $notify_data['out_trade_no'];
             $trade_no = $notify_data['trade_no'];
             //查询是否支付
             $model_payment = new PaymentModel();
-            $result = $model_payment->searchPaymentResult(1, $out_trade_no, $trade_no);
+            $result = $model_payment->searchPaymentResult('alipay_h5', $out_trade_no, $trade_no);
 
             //根据商户订单号等查询订单信息写业务逻辑
         }
@@ -720,14 +720,14 @@ class Payment
 		];
 		
         //支付宝验签
-        $aop = new \fyflzjz\payment\AlipayAop\AopClient($config);
+        $aop = new \fyflzjz\paypal\AlipayAop\AopClient($config);
         $notify_result = $aop->rsaCheckV1($notify_data);
         if ($notify_result) {
             $out_trade_no = $notify_data['out_trade_no'];
             $trade_no = $notify_data['trade_no'];
             //查询是否支付
             $model_payment = new PaymentModel();
-            $result = $model_payment->searchPaymentResult(6, $out_trade_no, $trade_no);
+            $result = $model_payment->searchPaymentResult('alipay_pc', $out_trade_no, $trade_no);
 
             //根据商户订单号等查询订单信息写业务逻辑
 
