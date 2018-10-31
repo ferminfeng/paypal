@@ -1,0 +1,37 @@
+{
+    "name": "fyflzjz/paypal",
+    "type": "library",
+    "description": "Alipay和WeChat的支付、退款、支付查询SDK",
+    "keywords": [
+		"alipay",
+		"weixin",
+		"WeChat",
+		"支付宝支付",
+		"微信支付",
+		"支付接口",
+		"payment",
+		"refund"
+	],
+    "homepage": "https://github.com/fyflzjz/paypal",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "fyflzjz",
+            "email": "ferminfeng@gmail.com",
+            "homepage": "http://fyflzjz.github.io"
+        }
+    ],
+    "require": {
+        "php": ">=5.6"
+    },
+    "autoload": {
+        "psr-4": {
+			"fyflzjz\\paypal\\": "/src"
+		}
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
+}
