@@ -64,14 +64,11 @@ class WxPayDataBase
      * 将xml转为array
      *
      * @param string $xml
-     *
-     * @throws WxPayException
      */
     public static function Init($xml)
     {
         $obj = new self();
         $obj->FromXml($xml);
-        //fix bug 2015-06-29
         if ($obj->values['return_code'] != 'SUCCESS') {
             return $obj->GetValues();
         }
@@ -145,12 +142,11 @@ class WxPayDataBase
      * @param $xml
      *
      * @return array|mixed
-     * @throws WxPayException
      */
     public function FromXml($xml)
     {
         if (!$xml) {
-            throw new WxPayException("xml数据异常！");
+            return $this->values = ['return_code' => 'FAIL', 'return_msg' => 'xml数据异常!', 'input' => $inputObj];
         }
         //将XML转为array
         //禁止引用外部xml实体
@@ -230,8 +226,6 @@ class WxPayDataBase
      * 回复通知
      *
      * @param bool $needSign 是否需要签名输出
-     *
-     * @throws WxPayException
      */
     final private function ReplyNotify($needSign = true)
     {
@@ -271,7 +265,6 @@ class WxPayDataBase
      * 输出xml字符
      *
      * @return string
-     * @throws WxPayException
      */
     public function ToXml()
     {

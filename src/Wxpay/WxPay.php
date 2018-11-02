@@ -42,12 +42,6 @@ class WxPay
         //初始化配置
         $wxPayConfig = new WxPayConfig();
         $wxPayConfig->getConfig($config);
-
-        //初始化日志
-        $log_path = $config['log_path'] . 'log' . DIRECTORY_SEPARATOR . date('Ym', time()) . DIRECTORY_SEPARATOR . 'app_' . date('Y-m-d') . '.log';
-        $logHandler = new CLogFileHandler($log_path);
-        LogNew::Init($logHandler, 15);
-
     }
 
     /**
@@ -115,18 +109,6 @@ class WxPay
 
         $wxPayApi = new WxPayApi();
         $result = $wxPayApi->unifiedOrder($input);
-
-        if ($trade_type == 'JSAPI') {
-            if (!isset($result['appid']) || !isset($result['prepay_id'])
-                || $result['prepay_id'] == "") {
-                LogNew::INFO(json_encode($result, JSON_UNESCAPED_UNICODE));
-            }
-        } else {
-            if (($result['result_code'] != 'SUCCESS' || $result['return_code'] != 'SUCCESS')) {
-                LogNew::INFO(json_encode($result, JSON_UNESCAPED_UNICODE));
-            }
-        }
-
         return $result;
     }
 
