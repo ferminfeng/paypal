@@ -30,15 +30,17 @@ class Payment
                                 alipay_pc   支付宝PC
                                 wxpay_app   微信App
                                 wxapy_h5    微信H5
+     *                          wxpay_small 微信小程序
+     *                          wxpay_native 微信扫码付
             order_type:     订单类型，不同的业务会生成不同的订单，会存在不同的业务逻辑，可通过这个参数区分，便于在接收异步通知时分开处理业务逻辑
 
         返回说明:
             array('code' => '', 'msg' => '','data' => '')
                 code:
-                    1:请求成功，支付参数在data内，注意：当为支付宝H5以及支付宝PC唤起支付时直接输出返回参数内data的数据即可，data参数内为from表单代码，它会自动提交
+                    200:请求成功，支付参数在data内，注意：当为支付宝H5以及支付宝PC唤起支付时直接输出返回参数内data的数据即可，data参数内为from表单代码，它会自动提交
                     负值:请求失败
                 msg:提示语
-                data:code=1时为支付参数，code为其他值时为空
+                data:code=200时为支付参数，code为其他值时为空
      */
     public function payment()
     {
@@ -98,13 +100,15 @@ class Payment
                             alipay_pc   支付宝PC
                             wxpay_app   微信App
                             wxapy_h5    微信H5
+                            wxpay_small 微信小程序
+                            wxpay_native 微信扫码付
             out_sn:      商户订单号
             trade_no:    支付流水号
 
         返回参数
             array('code' => '', 'msg' => '','data' => '')
             code:
-                1:支付成功
+                200:支付成功
                 他值：请查看msg
             msg:提示语
             data:接口返回值
@@ -376,10 +380,11 @@ class Payment
         payment_way:     支付方式
                             wxpay_app   微信App
                             wxapy_h5    微信H5
+                            wxpay_small    微信小程序
         返回参数
         array('code' => '', 'msg' => '','data' => '')
             code:
-                1:支付成功
+                200:支付成功
                 其他值：查看msg
             msg:提示语
             data:接口返回值
@@ -446,6 +451,8 @@ class Payment
                         alipay_pc   支付宝PC
                         wxpay_app   微信App
                         wxapy_h5    微信H5
+                        wxpay_small    微信小程序
+     *
      */
     public function getBillDownload()
     {
@@ -523,7 +530,7 @@ class Payment
 		];
 		
         //支付宝验签
-        $aop = new \fyflzjz\payment\AlipayAop\AopClient($config);
+        $aop = new \fyflzjz\paypal\AlipayAop\AopClient($config);
         $notify_result = $aop->rsaCheckV1($notify_data);
         if ($notify_result) {
             //区分异步通知状态 当trade_status=TRADE_SUCCESS时表明支付成功
@@ -570,7 +577,7 @@ class Payment
 			'sslcert_path' => '',
 			'sslkey_path' => '',
 		];
-        $weiXinPay = new \fyflzjz\payment\Wxpay\WxPay($config);
+        $weiXinPay = new \fyflzjz\paypal\Wxpay\WxPay($config);
         $notify_info = $weiXinPay->check_notify();
 
         //验签失败 返回消息给微信服务器
@@ -633,7 +640,7 @@ class Payment
 			'sslcert_path' => '',
 			'sslkey_path' => '',
 		];
-        $weiXinPay = new \fyflzjz\payment\Wxpay\JsApiPay($config);
+        $weiXinPay = new \fyflzjz\paypal\Wxpay\JsApiPay($config);
         $notify_info = $weiXinPay->check_notify();
 
         //验签失败 返回消息给微信服务器
@@ -692,14 +699,14 @@ class Payment
 		];
 		
         //支付宝验签
-        $aop = new \fyflzjz\payment\AlipayAop\AopClient($config);
+        $aop = new \fyflzjz\paypal\AlipayAop\AopClient($config);
         $notify_result = $aop->rsaCheckV1($notify_data);
         if ($notify_result) {
             $out_trade_no = $notify_data['out_trade_no'];
             $trade_no = $notify_data['trade_no'];
             //查询是否支付
             $model_payment = new PaymentModel();
-            $result = $model_payment->searchPaymentResult(1, $out_trade_no, $trade_no);
+            $result = $model_payment->searchPaymentResult('alipay_h5', $out_trade_no, $trade_no);
 
             //根据商户订单号等查询订单信息写业务逻辑
         }
@@ -720,14 +727,14 @@ class Payment
 		];
 		
         //支付宝验签
-        $aop = new \fyflzjz\payment\AlipayAop\AopClient($config);
+        $aop = new \fyflzjz\paypal\AlipayAop\AopClient($config);
         $notify_result = $aop->rsaCheckV1($notify_data);
         if ($notify_result) {
             $out_trade_no = $notify_data['out_trade_no'];
             $trade_no = $notify_data['trade_no'];
             //查询是否支付
             $model_payment = new PaymentModel();
-            $result = $model_payment->searchPaymentResult(6, $out_trade_no, $trade_no);
+            $result = $model_payment->searchPaymentResult('alipay_pc', $out_trade_no, $trade_no);
 
             //根据商户订单号等查询订单信息写业务逻辑
 

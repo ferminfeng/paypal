@@ -1,6 +1,6 @@
 <?php
-namespace fyflzjz\payment\Wxpay\lib;
 
+namespace fyflzjz\paypal\Wxpay\lib;
 
 /**
  *

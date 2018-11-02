@@ -1,5 +1,5 @@
 <?php
-namespace fyflzjz\payment\AlipayAop\request;
+namespace fyflzjz\paypal\AlipayAop\request;
 /**
  * 	查询对账单下载地址
  * ALIPAY API: alipay.data.dataservice.bill.downloadurl.query request

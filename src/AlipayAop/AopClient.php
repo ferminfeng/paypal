@@ -1,6 +1,6 @@
 <?php
 
-namespace fyflzjz\payment\AlipayAop;
+namespace fyflzjz\paypal\AlipayAop;
 
 class AopClient {
 

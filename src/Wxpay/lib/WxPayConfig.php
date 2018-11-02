@@ -1,6 +1,6 @@
 <?php
 
-namespace fyflzjz\payment\Wxpay\lib;
+namespace fyflzjz\paypal\Wxpay\lib;
 
 class WxPayConfig
 {
@@ -22,7 +22,8 @@ class WxPayConfig
      * @var string
      */
 
-    public function getConfig($config){
+    public function getConfig($config)
+    {
 
         //微信支付App配置
         define('APPID', $config['app_id']);
@@ -62,7 +63,7 @@ class WxPayConfig
          * 上报等级，0.关闭上报; 1.仅错误出错上报; 2.全量上报
          * @var int
          */
-        define('REPORT_LEVENL',1);
+        define('REPORT_LEVENL', 1);
 
     }
 }

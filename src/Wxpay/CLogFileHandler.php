@@ -1,5 +1,5 @@
 <?php
-namespace fyflzjz\payment\Wxpay;
+namespace fyflzjz\paypal\Wxpay;
 //以下为日志
 
 interface ILogHandler
