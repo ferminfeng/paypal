@@ -2,7 +2,7 @@
 
 ## 安装
 ```shell
-composer require fyflzjz/paypal
+composer require fyflzjz/paypal "v0.0.2"
 ```
 
 ## 支持的支付、查询、退款方法
