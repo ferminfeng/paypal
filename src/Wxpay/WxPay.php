@@ -300,7 +300,7 @@ class WxPay
         $input->SetPackage("prepay_id=" . $prepay_id);
         $input->SetSignType("MD5");
         $input->SetPaySign($input->MakeSign());
-        $parameters = json_encode($input->GetValues(), JSON_UNESCAPED_UNICODE);
+        $parameters = $input->GetValues();
 
         return $parameters;
     }
