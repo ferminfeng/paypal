@@ -294,7 +294,7 @@ class WxPay
         $timeStamp = time();
 
         $input = new WxPayDataBase();
-        $input->SetAppid(APPID);
+        $input->SetAppIdCapitalization(APPID);
         $input->SetTimeStamp("$timeStamp");
         $input->SetNonceStr(WxPayApi::getNonceStr());
         $input->SetPackage("prepay_id=" . $prepay_id);

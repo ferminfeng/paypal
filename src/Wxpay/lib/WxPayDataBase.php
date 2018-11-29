@@ -350,6 +350,28 @@ class WxPayDataBase
     }
 
     /**
+     * 设置微信分配的公众账号ID
+     * 微信小程序签名时是appId,而不是appid
+     *
+     * @param string $value
+     **/
+    public function SetAppIdCapitalization($value)
+    {
+        $this->values['appId'] = $value;
+    }
+
+    /**
+     * 获取微信分配的公众账号ID的值
+     * 微信小程序签名时是appId,而不是appid
+     *
+     * @return mixed
+     **/
+    public function GetAppIdCapitalization()
+    {
+        return $this->values['appId'];
+    }
+
+    /**
      * 判断微信分配的公众账号ID是否存在
      *
      * @return bool
